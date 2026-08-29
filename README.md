@@ -28,6 +28,12 @@
 
 ---
 
+## 🎮 In-Game Screenshot
+
+<p align="center">
+  <img src="game-screenshot.png" alt="Jeep in Jungle in-game driving screenshot" width="100%">
+</p>
+
 ## 🎮 About the Project
 
 **Jeep in Jungle** is a cinematic 3D off-road driving experience that runs directly in a modern web browser. The project combines procedural terrain, a custom 4×4 vehicle model, surface-aware driving behavior, dynamic suspension, collision handling, environmental effects, interactive cameras, particle systems, and procedural sound into a single lightweight web experience.
@@ -155,6 +161,7 @@ The current version uses **Three.js 0.169.0** through UNPKG.
 jungle-jeep/
 ├── index.html
 ├── screenshot.png
+├── game-screenshot.png
 └── README.md
 ```
 
