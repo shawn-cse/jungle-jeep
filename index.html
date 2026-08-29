@@ -34,6 +34,13 @@
 
     canvas {
       display: block;
+      touch-action: none;
+    }
+
+    html,
+    body {
+      overscroll-behavior: none;
+      touch-action: none;
     }
 
     /* rich cinematic golden-hour grade + vignette */
@@ -641,6 +648,415 @@
       line-height: 1.6;
       font-size: 14px;
     }
+
+    /* ========================================================================
+       MOBILE + TABLET RESPONSIVE HUD / TOUCH CONTROLS
+       ======================================================================== */
+
+    /* Safe-area aware positioning for modern phones/tablets */
+    #hud,
+    #touch {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+    }
+
+    @media (max-width: 1024px), (pointer: coarse) {
+      #start {
+        align-items: flex-start;
+        padding:
+          max(14px, env(safe-area-inset-top))
+          max(14px, env(safe-area-inset-right))
+          max(14px, env(safe-area-inset-bottom))
+          max(14px, env(safe-area-inset-left));
+      }
+
+      #start .wrap {
+        width: min(760px, 100%);
+        margin: auto;
+        padding: 28px 28px;
+      }
+
+      #start h1 {
+        font-size: clamp(36px, 7vw, 54px);
+      }
+
+      #start p.sub {
+        max-width: none;
+      }
+
+      .keys {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #topleft {
+        left: max(12px, env(safe-area-inset-left));
+        top: max(12px, env(safe-area-inset-top));
+      }
+
+      #speedo {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+      }
+
+      #compass {
+        top: max(12px, env(safe-area-inset-top));
+      }
+
+      .tbtn {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    /* Phones: compact HUD and separated controls */
+    @media (max-width: 700px), ((pointer: coarse) and (max-height: 950px)) {
+      .panel {
+        border-radius: 12px;
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+      }
+
+      #start {
+        justify-content: flex-start;
+      }
+
+      #start .wrap {
+        padding: 20px 16px 22px;
+        border-radius: 18px;
+      }
+
+      .brand-badge {
+        font-size: 9px;
+        padding: 6px 10px;
+        margin-bottom: 12px;
+      }
+
+      #start h1 {
+        font-size: clamp(32px, 10vw, 46px);
+      }
+
+      #start p.sub {
+        margin: 12px 0 18px;
+        font-size: 13.5px;
+        line-height: 1.52;
+      }
+
+      .author-card {
+        padding: 12px 14px;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .author-avatar {
+        width: 42px;
+        height: 42px;
+      }
+
+      .author-details .name {
+        font-size: 14px;
+      }
+
+      .author-details .role {
+        font-size: 10px;
+      }
+
+      .social-btn {
+        padding: 7px 11px;
+        font-size: 12px;
+      }
+
+      .row {
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .qual {
+        width: 100%;
+      }
+
+      .seg {
+        width: 100%;
+      }
+
+      .seg button {
+        flex: 1;
+        padding: 11px 7px;
+        font-size: 11.5px;
+      }
+
+      #startBtn {
+        width: 100%;
+        padding: 14px 18px;
+        font-size: 15px;
+      }
+
+      #bar {
+        margin-top: 16px;
+      }
+
+      .keys {
+        margin-top: 18px;
+        padding-top: 16px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px 10px;
+        font-size: 10.5px;
+      }
+
+      .keys kbd {
+        padding: 2px 5px;
+        min-width: 21px;
+        margin-right: 3px;
+        font-size: 9.5px;
+      }
+
+      /* Compass occupies its own top row */
+      #compass {
+        top: max(8px, env(safe-area-inset-top));
+        padding: 5px 10px;
+        font-size: 9.5px;
+        letter-spacing: .12em;
+        white-space: nowrap;
+      }
+
+      /* Compact left telemetry panel */
+      #topleft {
+        left: max(8px, env(safe-area-inset-left));
+        top: calc(max(8px, env(safe-area-inset-top)) + 45px);
+        min-width: 0;
+        width: 148px;
+        padding: 9px 10px;
+        font-size: 10.5px;
+        line-height: 1.58;
+      }
+
+      #topleft .k {
+        min-width: 58px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        margin-right: 4px;
+      }
+
+      /* Speedometer moved away from touch controls */
+      #speedo {
+        right: max(8px, env(safe-area-inset-right));
+        top: calc(max(8px, env(safe-area-inset-top)) + 45px);
+        bottom: auto;
+        min-width: 88px;
+        width: 88px;
+        padding: 9px 10px 8px;
+      }
+
+      #spd {
+        font-size: 30px;
+      }
+
+      #spdU {
+        font-size: 8px;
+        letter-spacing: .14em;
+        margin-top: 3px;
+      }
+
+      #gearRow {
+        gap: 1px;
+        margin-top: 6px;
+      }
+
+      #gearRow div {
+        width: 15px;
+        font-size: 8.5px;
+      }
+
+      #speedo .bars {
+        display: none;
+      }
+
+      #notice {
+        top: calc(max(8px, env(safe-area-inset-top)) + 146px);
+        max-width: 72vw;
+        padding: 7px 11px;
+        font-size: 9px;
+        letter-spacing: .06em;
+        white-space: nowrap;
+      }
+
+      #tip {
+        display: none !important;
+      }
+
+      #warn {
+        width: min(84vw, 340px);
+        padding: 12px 14px;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      /* Clear, non-overlapping driving controls */
+      .tbtn {
+        width: 64px;
+        height: 64px;
+        font-size: 18px;
+        background: rgba(20, 24, 20, 0.50);
+        border-color: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .28);
+      }
+
+      #tLeft {
+        left: max(16px, env(safe-area-inset-left)) !important;
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 4px) !important;
+      }
+
+      #tRight {
+        left: calc(max(16px, env(safe-area-inset-left)) + 78px) !important;
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 4px) !important;
+      }
+
+      #tGas {
+        right: max(16px, env(safe-area-inset-right)) !important;
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 82px) !important;
+      }
+
+      #tBrake {
+        right: max(16px, env(safe-area-inset-right)) !important;
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 4px) !important;
+      }
+
+      #tCam {
+        left: 50% !important;
+        right: auto !important;
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 4px) !important;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        font-size: 11px !important;
+      }
+    }
+
+    /* Portrait phones: make the scene readable without control overlap */
+    @media (max-width: 700px) and (orientation: portrait) {
+      #topleft {
+        width: 142px;
+      }
+
+      #speedo {
+        width: 82px;
+        min-width: 82px;
+      }
+
+      .tbtn {
+        width: 62px;
+        height: 62px;
+      }
+
+      #tRight {
+        left: calc(max(14px, env(safe-area-inset-left)) + 72px) !important;
+      }
+
+      #tGas {
+        bottom: calc(max(18px, env(safe-area-inset-bottom)) + 76px) !important;
+      }
+    }
+
+    /* Landscape phones/tablets: keep controls near edges */
+    @media (max-height: 600px) and (orientation: landscape) {
+      #start {
+        padding: 8px 12px;
+      }
+
+      #start .wrap {
+        width: min(930px, 98vw);
+        padding: 16px 20px;
+      }
+
+      #start p.sub {
+        margin: 8px 0 12px;
+        line-height: 1.42;
+      }
+
+      .author-card {
+        margin-bottom: 12px;
+        padding: 9px 12px;
+      }
+
+      .keys {
+        display: none;
+      }
+
+      #bar {
+        margin-top: 10px;
+      }
+
+      #loadTxt {
+        margin-top: 6px;
+      }
+
+      #compass {
+        top: max(6px, env(safe-area-inset-top));
+      }
+
+      #topleft {
+        top: max(8px, env(safe-area-inset-top));
+        left: max(8px, env(safe-area-inset-left));
+        width: 134px;
+        padding: 7px 9px;
+        font-size: 9.5px;
+      }
+
+      #topleft .k {
+        min-width: 52px;
+      }
+
+      #speedo {
+        top: auto;
+        bottom: max(8px, env(safe-area-inset-bottom));
+        right: max(8px, env(safe-area-inset-right));
+        width: 92px;
+        min-width: 92px;
+      }
+
+      #notice {
+        top: max(8px, env(safe-area-inset-top));
+      }
+
+      .tbtn {
+        width: 58px;
+        height: 58px;
+        font-size: 16px;
+      }
+
+      #tLeft {
+        left: max(14px, env(safe-area-inset-left)) !important;
+        bottom: max(14px, env(safe-area-inset-bottom)) !important;
+      }
+
+      #tRight {
+        left: calc(max(14px, env(safe-area-inset-left)) + 70px) !important;
+        bottom: max(14px, env(safe-area-inset-bottom)) !important;
+      }
+
+      #tGas {
+        right: max(14px, env(safe-area-inset-right)) !important;
+        bottom: calc(max(14px, env(safe-area-inset-bottom)) + 70px) !important;
+      }
+
+      #tBrake {
+        right: max(14px, env(safe-area-inset-right)) !important;
+        bottom: max(14px, env(safe-area-inset-bottom)) !important;
+      }
+
+      #tCam {
+        left: auto !important;
+        right: calc(max(14px, env(safe-area-inset-right)) + 70px) !important;
+        bottom: max(14px, env(safe-area-inset-bottom)) !important;
+        transform: none;
+        width: 58px;
+        height: 58px;
+      }
+    }
+
   </style>
 </head>
 
@@ -787,6 +1203,25 @@
       const c = document.createElement('canvas');
       if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('no ctx');
     } catch (e) { fail(); throw e; }
+
+    const IS_TOUCH_DEVICE =
+      ('ontouchstart' in window) ||
+      (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) ||
+      window.matchMedia('(pointer: coarse)').matches;
+
+    const IS_PHONE_LAYOUT = () =>
+      Math.min(window.innerWidth, window.innerHeight) <= 700;
+
+    async function requestMobileFullscreen() {
+      if (!IS_TOUCH_DEVICE || document.fullscreenElement) return;
+      const root = document.documentElement;
+      try {
+        if (root.requestFullscreen) await root.requestFullscreen({ navigationUI: 'hide' });
+        else if (root.webkitRequestFullscreen) root.webkitRequestFullscreen();
+      } catch (_) {
+        /* Fullscreen is optional; the responsive layout still works without it. */
+      }
+    }
 
     /* =========================================================================
        1. QUALITY PRESETS
@@ -2739,7 +3174,9 @@
         camState.look.lerp(_v2, 1 - Math.exp(-8.0 * dt));
         camera.position.copy(camState.pos);
         camera.lookAt(camState.look);
-        camera.fov = lerp(camera.fov, 62 + speedK * 8, 1 - Math.exp(-3.5 * dt));
+        const mobilePortrait = IS_TOUCH_DEVICE && window.innerHeight > window.innerWidth;
+        const chaseBaseFov = mobilePortrait ? 70 : 62;
+        camera.fov = lerp(camera.fov, chaseBaseFov + speedK * 8, 1 - Math.exp(-3.5 * dt));
         camera.updateProjectionMatrix();
 
       } else if (mode === 'cockpit') {
@@ -3154,8 +3591,12 @@
       el.addEventListener('mouseleave', u);
     }
     function initTouch() {
-      if (!('ontouchstart' in window)) return;
+      if (!IS_TOUCH_DEVICE) return;
       document.getElementById('touch').classList.remove('hidden');
+      if (window.innerHeight > window.innerWidth) {
+        camState.targetDist = 9.8;
+        camState.dist = 9.8;
+      }
       bindTouch('tGas', () => touch.gas = true, () => touch.gas = false);
       bindTouch('tBrake', () => touch.brake = true, () => touch.brake = false);
       bindTouch('tLeft', () => touch.steer = -1, () => { if (touch.steer < 0) touch.steer = 0; });
@@ -3287,7 +3728,13 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, Q.pixelRatio));
       if (composer) { composer.setSize(window.innerWidth, window.innerHeight); composer.setPixelRatio(Math.min(window.devicePixelRatio, Q.pixelRatio)); }
     }
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', () => {
+      onResize();
+      if (IS_TOUCH_DEVICE && MODES[camMode] === 'chase') {
+        const portrait = window.innerHeight > window.innerWidth;
+        camState.targetDist = portrait ? 9.8 : 8.2;
+      }
+    });
 
     /* =========================================================================
        16. BOOTSTRAP
@@ -3305,7 +3752,14 @@
         selectedQuality = b.dataset.q;
       });
     });
-    let selectedQuality = 'high', built = false;
+    let selectedQuality = IS_TOUCH_DEVICE
+      ? (IS_PHONE_LAYOUT() ? 'low' : 'medium')
+      : 'high';
+    let built = false;
+
+    document.querySelectorAll('#qseg button').forEach(x => x.classList.remove('on'));
+    const autoQualityButton = document.querySelector(`#qseg button[data-q="${selectedQuality}"]`);
+    if (autoQualityButton) autoQualityButton.classList.add('on');
 
     async function build() {
       built = true;
@@ -3349,8 +3803,9 @@
       }
     })();
 
-    startBtn.addEventListener('click', () => {
+    startBtn.addEventListener('click', async () => {
       if (started) return;
+      if (IS_TOUCH_DEVICE) await requestMobileFullscreen();
       started = true;
       audio.start();
       const s = document.getElementById('start');
